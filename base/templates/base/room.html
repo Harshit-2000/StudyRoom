@@ -2,19 +2,6 @@
 
 {% block content %}
 
-<style>
-    .room-container {
-        margin: 12px;
-        display: grid;
-        grid-template-columns: 3fr 1fr;
-    }
-
-    .message-box {
-        margin: 20px;
-    }
-</style>
-
-
 <div class="room-container">
 
     <div class="message-box">
@@ -28,12 +15,17 @@
             <ul class="list-group list-group-flush">
                 {% for message in messages %}
                 <li class="list-group-item">
-                    {% if message.user == request.user %}
-                    <a href="{% url 'delete-message' message.id %}">delete</a>
-                    {% endif %}
-                    <b>
-                        <span>{{ message.user }}, {{ message.created_at|timesince }} ago </span>
-                    </b>
+                    <div class="left">
+                        <b>
+                            <span>{{ message.user }}, {{ message.created_at|timesince }} ago </span>
+                        </b>
+                    </div>
+                    <div class="right">
+                        {% if message.user == request.user %}
+                        <a href="{% url 'delete-message' message.id %}"><img
+                                src="https://img.icons8.com/material-outlined/24/000000/delete-sign.png" /></a>
+                        {% endif %}
+                    </div>
                     <p>
                         {{message.body}}
                     </p>

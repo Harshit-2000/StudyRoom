@@ -24,24 +24,31 @@
 
                 <li class="list-group-item">
 
-                    <span>
-                        @{{ room.host }}
+                    <div>
 
-                        {% if request.user == room.host or request.user.is_superuser %}
+                        <div class="left">
+                            @{{ room.host }}
+                        </div>
+                        <div class="right">
+                            {% if request.user == room.host or request.user.is_superuser %}
 
-                        <a href="{% url 'update-room' room.id %}">Update</a>
-                        <a href="{% url 'delete-room' room.id %}">Delete</a>
+                            <a href="{% url 'update-room' room.id %}"><img
+                                    src="https://img.icons8.com/material-outlined/24/000000/edit--v1.png" /></a>
+                            <a href="{% url 'delete-room' room.id %}"><img
+                                    src="https://img.icons8.com/material-outlined/24/000000/delete-sign.png" /></a>
 
-                        {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
 
+                    <div>
                         <h3>
                             <a href="{% url 'room' room.id %}">
                                 {{room.name}}
                             </a>
                         </h3>
-                        <b><small>{{ room.topic.name }}</small></b>
-                    </span>
-
+                    </div>
+                    <b><small>{{ room.topic.name }}</small></b>
                 </li>
                 {% endfor %}
             </ul>
