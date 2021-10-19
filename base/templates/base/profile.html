@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class='profile-tab'>
+
+    <div class='profile-picture'><img
+            src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg"
+            alt="profile-picture"></div>
+    <h2>{{user.username}}</h2>
+    <small>@{{user.username}}</small>
+
+</div>
+
+
+
+<div class="home-container">
+
+    <div></div>
+
+    <div class="main-home">
+
+        <ul class="list-group list-group-flush">
+            {% for room in rooms %}
+
+
+            <li class="list-group-item">
+
+                <div>
+
+                    <div class="left">
+
+                        <a href="{% url 'user-profile' room.host.id %}"> @{{ room.host }} </a>
+                    </div>
+                    <div class="right">
+                        {% if request.user == room.host or request.user.is_superuser %}
+
+                        <a href="{% url 'update-room' room.id %}"><img
+                                src="https://img.icons8.com/material-outlined/24/000000/edit--v1.png" /></a>
+                        <a href="{% url 'delete-room' room.id %}"><img
+                                src="https://img.icons8.com/material-outlined/24/000000/delete-sign.png" /></a>
+                        {% else %}
+
+                        <br>
+
+                        {% endif %}
+
+                    </div>
+                </div>
+
+                <div>
+                    <h3>
+                        <a href="{% url 'room' room.id %}">
+                            {{room.name}}
+                        </a>
+                    </h3>
+                </div>
+                <b><small>{{ room.topic.name }}</small></b>
+            </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+
+    <div>
+        {% include 'base/activity_component.html' %}
+    </div>
+
+</div>
+
+
+{% endblock %}

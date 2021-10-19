@@ -33,8 +33,6 @@ body{
     padding-right: 18px;
 }
 
-
-
 .center {
     justify-content: center;
     background-color: whitesmoke;
@@ -55,4 +53,17 @@ body{
 
 .message-box {
     margin: 20px;
+}
+
+.profile-tab{
+    margin: 16px;
+    text-align: center;
+    font-size: large;
+}
+
+.profile-picture img{
+    height: 65px;
+    width: 65px;
+    border-radius: 50%;
+    display: inline-block;
 }

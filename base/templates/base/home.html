@@ -27,7 +27,8 @@
                     <div>
 
                         <div class="left">
-                            @{{ room.host }}
+
+                            <a href="{% url 'user-profile' room.host.id %}"> @{{ room.host }} </a>
                         </div>
                         <div class="right">
                             {% if request.user == room.host or request.user.is_superuser %}
