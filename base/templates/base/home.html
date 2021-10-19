@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="home-container">
+
+
+    <div>
+
+        {% include 'base/topic_component.html' %}
+
+    </div>
+
+
+    <div class="main-home">
+
+        <a href="{% url 'create-room' %}" type="button" class="btn btn-primary">Create a new room</a>
+
+        <div>
+            <ul class="list-group list-group-flush">
+                {% for room in rooms %}
+
+
+                <li class="list-group-item">
+
+                    <span>
+                        @{{ room.host }}
+
+                        {% if request.user == room.host or request.user.is_superuser %}
+
+                        <a href="{% url 'update-room' room.id %}">Update</a>
+                        <a href="{% url 'delete-room' room.id %}">Delete</a>
+
+                        {% endif %}
+
+                        <h3>
+                            <a href="{% url 'room' room.id %}">
+                                {{room.name}}
+                            </a>
+                        </h3>
+                        <b><small>{{ room.topic.name }}</small></b>
+                    </span>
+
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+
+    <div>
+        {% include 'base/activity_component.html' %}
+    </div>
+
+
+</div>
+
+{% endblock %}

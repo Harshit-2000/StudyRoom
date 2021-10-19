@@ -1,0 +1,16 @@
+<h2>Recent Activity</h2>
+
+{% for message in room_messages %}
+
+<div class="list-group">
+    <a href="{% url 'room' message.room.id %}" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{message.room.name}}</h5>
+            <small>{{message.created_at|timesince}} ago</small>
+        </div>
+        <small>@{{message.user}}</small>
+        <p class="mb-1">{{ message.body }}</p>
+    </a>
+</div>
+
+{% endfor %}

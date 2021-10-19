@@ -1,0 +1,19 @@
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">StudyRoom</a>
+        {% if request.user.is_authenticated %}
+        <form class="d-flex" action="{% url 'home' %}">
+            <input class="form-control me-2" type="text" placeholder="Search a room" aria-label="Search" name="q">
+        </form>
+        <div>
+            Hello, @{{ request.user.username }}
+            <a class="btn btn-outline-success" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+            <div>
+                <a class="btn btn-outline-success" href="{% url 'login' %}">Login</a>
+                <a class="btn btn-outline-success" href="{% url 'register' %}">Register</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</nav>
