@@ -1,0 +1,69 @@
+/* 
+body{
+    background-color: #2b3a58;
+} */
+
+.navbar{
+    background-color: whitesmoke;
+}
+
+.left {
+    float: left;
+    width: 50%;
+}
+.right {
+    float: right;
+    width: 50%;
+    text-align: end;
+}
+
+
+.home-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    padding: 12px;
+}
+
+.btn {
+    margin: 16px;
+}
+
+.main-home {
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+.center {
+    justify-content: center;
+    background-color: whitesmoke;
+    margin: 32px;
+    padding: 12px;
+}
+
+
+.list-group-item{
+    background-color: whitesmoke;
+}
+
+.room-container {
+    margin: 12px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+}
+
+.message-box {
+    margin: 20px;
+}
+
+.profile-tab{
+    margin: 16px;
+    text-align: center;
+    font-size: large;
+}
+
+.profile-picture img{
+    height: 65px;
+    width: 65px;
+    border-radius: 50%;
+    display: inline-block;
+}
