@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from base.models import Message, Room, Topic
 from django.contrib.auth.forms import UserCreationForm
+from django.template.defaultfilters import slugify
 # Create your views here.
 
 
@@ -162,7 +163,7 @@ def room_view(request, pk):
 
     participants = room.participants.all()
 
-    messages = room.message_set.all().order_by('-created_at')
+    messages = room.message_set.all().order_by('created_at')
 
     if request.method == "POST":
         message = request.POST.get('message-input')
@@ -172,13 +173,16 @@ def room_view(request, pk):
             room=room,
             body=message
         )
+
         room.participants.add(request.user)
 
         return redirect('room', pk=room.id)
+
     context = {
         'room': room,
         'messages': messages,
-        'participants': participants
+        'participants': participants,
+        'room_id': room.id
     }
 
     return render(request, 'base/room.html', context)
@@ -193,7 +197,6 @@ def user_profile_view(request, pk):
     room_messages = user.message_set.all()
 
     topics = Topic.objects.all()
-
 
     context = {
         'user': user,

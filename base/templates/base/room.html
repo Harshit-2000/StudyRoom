@@ -16,7 +16,7 @@
         </div>
 
         <div class="card">
-            <ul class="list-group list-group-flush">
+            <ul class="list-group list-group-flush" id='chat-log'>
                 {% for message in messages %}
                 <li class="list-group-item">
                     <div class="left">
@@ -38,8 +38,9 @@
             </ul>
         </div>
         {% if request.user.is_authenticated %}
-        <form action="" method="POST"> {% csrf_token %}
-            <input class="form-control me-2" type="text" name="message-input" placeholder="Type your message...">
+        <form id="chat-form">
+            <input id="chat-message-input" class="form-control me-2" type="text" name="message-input"
+                placeholder="Type your message...">
         </form>
         {% endif %}
 
@@ -55,5 +56,62 @@
     </div>
 
 </div>
+
+<script>
+    const roomId = '{{ room_id|safe }}';
+
+    const socket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/chat/'
+        + roomId
+        + '/'
+    );
+
+
+    socket.onclose = function (e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    socket.onmessage = function (event) {
+        var data = JSON.parse(event.data);
+        var message = data['message'];
+        var user = data['username'];
+
+        var chatLog = document.querySelector("#chat-log");
+        chatLog.innerHTML +=
+            `<li class="list-group-item">
+                <div class="left">
+                    <b>
+                        <span> ${user}, {{ message.created_at|timesince }} ago </span>
+                    </b>
+                </div>
+                <br>
+                <div class="right">
+                    {% if message.user == request.user %}
+                    <a href="{% url 'delete-message' message.id %}"><img
+                            src="https://img.icons8.com/material-outlined/24/000000/delete-sign.png" /></a>
+                    {% endif %}
+                </div>
+                <p>
+                    ${message}
+                </p>
+            </li>`
+            ;
+    };
+
+
+
+    document.querySelector("#chat-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        var messageInput = document.querySelector("#chat-message-input");
+        var message = messageInput.value;
+        socket.send(JSON.stringify({
+            'message': message
+        }));
+        messageInput.value = "";
+    });
+
+</script>
 
 {% endblock %}
