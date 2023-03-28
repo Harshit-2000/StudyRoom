@@ -70,6 +70,7 @@ def home_view(request):
         Q(name__icontains=q) |
         Q(description__icontains=q)
     )
+    
     room_messages = Message.objects.all().order_by('-created_at')[:4]
 
     rooms = rooms.order_by('-updated_at', '-created_at')
@@ -77,12 +78,14 @@ def home_view(request):
     room_count = rooms.count()
 
     topics = Topic.objects.all()
+
     context = {
         'rooms': rooms,
         'topics': topics,
         'room_count': room_count,
         'room_messages': room_messages,
     }
+
     return render(request, 'base/home.html', context)
 
 
