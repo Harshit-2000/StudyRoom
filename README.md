@@ -1,9 +1,10 @@
 # Study Room
 
 Study Room is a chat room webapp using django with login-authentication, CRED operation for user, chatroom and messages. Register and start learning.
+<br>
 Supports real time group chat using django chanels and websockets.
 
-Live - http://harshitpundir2000.pythonanywhere.com/
+![Screenshot (66)](https://user-images.githubusercontent.com/70425491/227778755-180e4d5d-1732-4c94-990f-6dafb1a41ab4.png)
 
 ## Setup
 
