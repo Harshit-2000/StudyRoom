@@ -36,6 +36,29 @@ Installing Requirements
 ```bash
 pip install -r requirements.txt
 ```
+## Start a redis server 
+
+Start a redis server and change the hosts parameter to your own redis server in the settings.py file.
+```
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("redis://default:redispw@localhost:32768")],
+        },
+    },
+}
+```
+
+<b> OR if you are facing issues setting redis server, replace the above lines with the code below </b>
+
+```
+CHANNEL_LAYERS = {
+     "default": {
+         "BACKEND": "channels.layers.InMemoryChannelLayer"
+     }
+ }
+```
 
 ## Add a secret key
 
